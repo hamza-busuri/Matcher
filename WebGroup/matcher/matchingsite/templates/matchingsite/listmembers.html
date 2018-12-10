@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.modal-content{
+  background-color:whitesmoke;
+}
+</style>
+<div class="container">
+<div class="container-fluid bg-light ">
+  <div class="row align-items-center justify-content-center">
+
+</div>
+</div>
+<div class="container">
+   
+	<div class="row">
+        <div class="panel panel-default user_panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Matched Users</h3>
+                {% if count > 1 %}
+                <h3 class="panel-title">You have {{count}} matches.</h3>
+
+                {% elif count == 0 %}
+                <h3 class="panel-title">You have no matches.</h3>
+
+                {% else %}
+                <h3 class="panel-title">You have {{count}} match.</h3>
+
+                {% endif %}
+
+            </div>
+            <div class="panel-body">
+				<div class="table-container">
+           <div class="col-md-2 pt-3">
+                           <div class="form-group">
+                             {%csrf_token%}
+                             <input type="search" id="search" name="search" placeholder="First Name..." class="form-control"/>
+                           </div>
+                          </div>
+                    <table id ="search-results" class="table-users table" border="0" >
+                       <form method ="POST" class="form" >
+      {% csrf_token %}  
+
+                      <div class="col-md-2">
+                           <div class="form-group ">   
+                              <select id="gender" class="form-control">                              
+                                <option selected>Gender</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                              </select>
+                           </div>
+                        </div>
+                    <div class="col-md-2">
+                           <div class="form-group">
+                                <select id="age" class="form-control">       
+                                <option selected>Age</option>
+                                <option value="0">Under 30</option>
+                                <option value="1">30-50</option>
+                                <option value="2">Over 50</option>
+                              </select>
+                           </div>
+                          </div>
+                        <div class="col-md-2">
+                          <div class="form-group">
+                         <button id="but" type="button" class="btn btn-primary btn-block outline" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Filter Both</button> 
+                       </div>
+                     </div>
+
+                       <div class="col-md-2">
+                          <div class="form-group">
+                         <button id="but" type="button" class="btn btn-primary btn-block outline" data-toggle="tooltip" data-placement="right" title="Tooltip on right" onclick="window.location.reload()">Refresh</button>
+                       </div>
+                     </div>
+
+                      </div>
+
+                      
+                  </div>
+                </form>
+                      <thead>
+                              <tr>
+                                <th> Image</th>
+                                <th> User</th>
+                                <th> Email</th>
+                                <th> Gender</th>
+                                <th> DOB</th>
+                              </tr>
+                             </thead>
+                            {% for member in members %}
+                          
+                        <tbody id="{{member.id}}">
+                           
+                            <tr class ="members">
+                                {% if member.user.profile_pic %}
+                                <td width="10">
+                                    <img class="pull-left img-circle nav-user-photo" width="50" src="{{ member.user.profile_pic.url }}" /> 
+                                    </td>
+                                    {% else %}
+  <td width="10"><img class="pull-left img-circle nav-user-photo" width="50" src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png">
+  </td>                             
+                                {% endif %}
+                                <td>
+                                    <a href="/viewprofilepk/{{member.id}}"><p>{{ member}}</p></a><br><i class="fa fa-envelope"></i>
+                                </td>
+                                <td>
+                                  {{member.email}}
+                                </td>
+
+                                <td>
+                                  {{member.user.gender}}
+                                </td>
+
+                                <td>
+                                  {{member.user.dob}}
+                                </td>
+                            </tr>
+        
+                         {% endfor %}
+ <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Profile Quick View</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+ </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+                           <div class="pagination" id="page">
+    <span class="step-links">
+        {% if members.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ members.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ members.number }} of {{ members.paginator.num_pages }}.
+        </span>
+
+        {% if members.has_next %}
+            <a href="?page={{ members.next_page_number }}">next</a>
+            <a href="?page={{ members.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+	</div>
+</div>
+
+
+{% endblock content %}

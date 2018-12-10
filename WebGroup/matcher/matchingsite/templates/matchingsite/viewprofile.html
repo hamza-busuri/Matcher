@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ {% for message in messages %}
+
+                    <div class="alert alert-success">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+
+                        {{ message }}
+
+                    </div>
+            {% endfor %}
+ <div class="container main-secction">
+        <div class="row">
+            <div class="row user-left-part">
+                <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
+                    <div class="row cLeft ">
+                        <div class="pCon">
+
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center ">
+                            {% if user.user.profile_pic %}
+                    
+                            
+                            <input type="file" id="my_file" style="display: none;" /><img id="image" src="{{ user.user.profile_pic.url }}" class="rounded-circle" width="240px"></img></input>
+                            {% else %}
+                            <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+                            <a id="btn-contact" href="/editprofile/"  class="btn btn-primary btn-lg outline">Edit Profile</a>
+                            <a href="/listmembers/" class="btn btn-primary btn-lg outline">Matchers</a>                                
+                        </div>
+                        <div class="row user-detail-row">
+                            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+
+                            </div>                           
+                        </div>
+                        </div> 
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+                    <div class="row profile-right-section-row">
+                        <div class="col-md-12 profile-header">
+                            <div class="row">
+                                <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
+                                    <h1>{{user.first_name}} {{user.last_name}}</h1>
+                                    <h5 class=Memberclass>Member</h5>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8">
+                                        <div>
+                                                <div class="active">
+                                                  <p class="nav-link active Personal " href="#profile" role="tab" data-toggle="tab"><i class="fas fa-user-circle"></i> Personal Details</p>
+                                                </div>   
+
+                                        </div>
+                            </br>
+                                              
+                                              <!-- Tab panes -->
+                             
+                                                        <div class="row">
+                                                                <div class="col-md-2">
+                                                                    <label>User</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{user}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-2">
+                                                                    <label>Gender</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{user.user.gender}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-2">
+                                                                    <label>Email</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{user.email}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-2">
+                                                                    <label>DOB</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{user.user.dob}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-2">
+                                                                    <label>Location</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>{{user.user.location}}</p>
+                                                                </div>
+                                                               </div>
+                                                                <div class="row">
+                                                            <div class="col-md-2">
+                                                                    <label>Hobbies:</label>
+                                                                </div>
+                                                           
+                                                                <div class="col-md-6">
+                                                                    {% for hobby in user.hobbies.all %}
+                                                                    <p>{{hobby}}</p>
+                                                                    {% endfor %}
+                                                                </div>
+                                                               </div>
+                                                                
+                                                
+                                                <div role="tabpanel" class="tab-pane fade" id="buzz">
+                                                        <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Experience</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>Expert</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Hourly Rate</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>10$/hr</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Total Projects</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>230</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>English Level</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>Expert</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Availability</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>6 months</p>
+                                                                </div>
+                                                            </div>
+                                                </div>
+                                                
+                                              </div>
+                          
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+{% endblock content %}

@@ -1,0 +1,40 @@
+    {% if ageandg.count > 0 %}
+      <thead>
+                              <tr>
+                                <th> Image</th>
+                                <th> Name</th>
+                                <th> Email</th>
+                                <th> Gender</th>
+                                <th> DOB</th>
+                              </tr>
+                             </thead>
+             {% for both in ageandg %}
+             <tbody>
+                            <tr class ="members" id="{{both.user.id}}">
+                                {% if both.user.profile_pic %}
+                                <td width="10">
+                                    <img class="pull-left img-circle nav-user-photo" width="50" src="{{ both.user.profile_pic.url }}" />  
+                                </td>
+                                {% endif %}
+                                <td>
+                                    <a href="/viewprofilepk/{{both.id}}"><p>{{ both}}</p></a><br><i class="fa fa-envelope"></i>
+                                </td>
+                                <td>
+                                  {{both.email}}
+                                </td>
+
+                                <td>
+                                  {{both.user.gender}}
+                                </td>
+
+                                <td>
+                                  {{both.user.dob}}
+                                </td>
+                            </tr>
+                        </tbody>
+                            {% endfor %}
+                            {% else %}
+
+  <li>No results.</li>
+
+  {% endif %}  

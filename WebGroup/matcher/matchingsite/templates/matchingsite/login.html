@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+<script>
+$(document).ready(function(){    
+    $("#main").hide();
+});
+</script> 
+<div class="container editP">
+<div class="signup-form">
+   {% if loggedin %}
+           You are now logged in.
+       {% else %}
+    <form method="post">
+    <h2>Sign in</h2>
+     {% csrf_token %}
+    <p class="hint-text">Log in with your username and password.</p>
+    <div class="form-group">
+        <div class="row">
+        {{form | crispy}}
+      
+        <div class="form-group" style="width:100%">
+        <small class="text-muted">
+                <a class="ml-2" href="{% url 'password_reset' %}">Forgot Password?</a>
+        </small> &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+        <small class="text-muted">Don't have an account?
+                <a class="ml-2" href="{% url 'register' %}">Register here.</a>
+        </small> 
+              
+        </div>
+        <div class="form-group loginbut" style="width:100%">
+        <button type="submit" class="btn btn-primary btn-block outline">Login</button>
+        </div>
+        </div>
+    </div>
+
+      
+    </form>
+
+    {% for message in messages %}
+
+                    <div class="alert alert-info">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+
+                        {{ message }}
+
+                    </div>
+            {% endfor %}
+        {% endif %}
+</div>  
+</div>
+{% endblock %}                  

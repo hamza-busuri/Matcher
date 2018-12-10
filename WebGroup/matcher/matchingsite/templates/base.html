@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+{% load django_simple_cookie_consent_tags %}
+    <head>
+  {% display_cookie_consent %}
+
+      <link href="/static/matchingsite/css/special.css?" rel="stylesheet" type="text/css">
+      <link href="/static/matchingsite/css/profile.css" rel="stylesheet" type="text/css">
+      <link href="/static/matchingsite/css/carousel.css" rel="stylesheet" type="text/css">
+       <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+      <meta charset="utf-8">  
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+      <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script> 
+      <title>Find your match today!</title>
+<!-- Latest compiled and minified CSS -->
+
+    </head>
+    <style>
+    body{
+      color:#5cb85c;
+    }
+    .navbar-inverse{
+      background-color:#583c3d;
+    }
+
+
+  </style>
+    <body>
+
+    {% if loggedin %}
+          <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">             
+                    <li><a href="{% url 'members' %}"><span class="glyphicon glyphicon-heart"></span>Matchers</a></li>
+                    <li><a href="{% url 'locate' %}"  ><span class="glyphicon glyphicon-map-marker"></span>Locate & Create</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+                  <li><a href="{% url 'edit_profile' %}"><span class="glyphicon glyphicon-user"></span>Edit Profile</a> </li>
+                  <li><a href="{% url 'view_profile' %}"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
+                   <li><a href="{% url 'change_password' %}"><span class="glyphicon glyphicon-pencil"></span>Change Password</a></li>
+                   <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span>Log out</a></li>
+                   </li>
+        </ul>
+          </div>
+</nav>
+    {% endif %}
+<div class="container-fluid main">
+
+{% if not loggedin %}
+  <div id="myCarousel" class="carousel carousel-fade slide" data-ride="carousel" data-interval="3000">
+    <div class="carousel-inner" role="listbox">
+      <div class="item active background a"></div>
+      <div class="item background b"></div>
+      <div class="item background c"></div>
+    </div>
+  </div>
+  
+
+   <div id="main" class="covertext">
+
+    <div class="col-lg-10" style="float:none; margin:0 auto;">
+      <h1 class="title">MATCHER</h1>
+      <h3 class="subtitle"> Meet people at your doorstep!</h3>
+      
+    </div>
+    <div class="col-xs-12 explore">
+ 
+   <a href="{% url 'register' %}"><button type="button" class="btn btn-lg explorebtn">Register</button></a>
+    <a href="{% url 'login' %}"><button type="button" class="btn btn-lg explorebtn">Login</button></a>
+   {% endif %}   
+    </div>
+  </div>
+ <div id ="body" class="covertext">
+  {% block body %}
+        {% endblock %}
+    </div>
+  
+<br>
+<br>
+{% block content %}
+
+{% endblock content %}
+
+
+    </body>
+<script type ="text/javascript" src="{{ STATIC_URL}} /static/matchingsite/main.js?new"></script>
+
+</html>

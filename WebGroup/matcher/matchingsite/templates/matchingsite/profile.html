@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<script>
+  $(document).ready(function(){
+    if ( $('[type="date"]').prop('type') != 'date' ) {
+    $('[type="date"]').datepicker(
+      {
+        dateFormat: 'yy-mm-dd',
+        maxDate:'2002-12-31',
+      });
+}
+
+  });
+
+
+  $(document).ready(function(){
+
+      $('#id_dob').datepicker(
+      {
+        dateFormat: 'yy-mm-dd',
+        maxDate:'2002-12-31',
+      });
+  })
+</script>
+<div class="container editP">
+ <div class="row">
+    <div class="col-sm-6" > 
+<div class="signup-form pPicC">
+    <form method="post" enctype="multipart/form-data">
+    <h2 class="uName"> {{user}}</h2>
+     {% csrf_token %}
+    <p class="hint-text">Make changes to your profile.</p>
+      
+        {% if user.user.profile_pic %}   
+        <div class="form-group pPic"> 
+   <a class="profP" ><img src="{{ user.user.profile_pic.url }}" width="240"></a> 
+  </div>
+  {% else %}
+  <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
+    {% endif %}
+    
+  </div>
+</div>
+    <div class="col-sm-6">   
+<div class="form-group formP">
+        <div class="row">
+        {{form | crispy}}
+        {{ form.location.help_text |safe}}
+        {{ formHob | crispy}}
+        <div class="form-group loginbut" style="width:100%">
+            <button type="submit" class="btn btn-primary btn-block outline ">Make changes</button>
+        </div>
+    </form>
+</div> 
+</div>
+</div> 
+</div>
+</div>
+{% endblock content %}                   

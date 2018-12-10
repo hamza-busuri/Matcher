@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% block content %}
+<head> 
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+  <title>Google Maps Multiple Markers</title> 
+  <script src="http://maps.google.com/maps/api/js?v=3&key=AIzaSyB_tTMhV2RoEzPpczgXzCOd_qDcfy_WGIM" 
+          type="text/javascript"></script>
+</head> 
+  <div align="right" class="container main-secction">
+        <div class="row">
+            <div class="row user-left-part">
+                <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
+                    <div class="row cLeft ">
+                      <div class="pCon">
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center eventcreate">
+                          <h2 class="underline">Matchers Locations</h2>
+
+<table style="margin:20px; width:100%">
+    <tbody>
+<td>
+  <div id="map" style="width: 700px; height: 500px;
+  margin-left: auto;
+  margin-right: auto;"></div>
+</td>
+<td >
+                              <div>
+                                {% if data.count > 0 %}
+                                {% for loc in data %}
+                                
+                                <h4> <ul><li>{{loc}} - {{loc.user.location}}
+                                  </li></ul></h4>
+                                  {% endfor %}
+                                  {% else %}
+                                  <h4> <ul><li>You have no matches!</p></li></ul></h4>
+                                {% endif %}
+                                
+                              </div> 
+                            </td>    
+                            </tbody>   
+                          </table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+  <div align="right" class="container main-secction">
+        <div class="row">
+            <div class="row user-left-part">
+                <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
+                    <div class="row cLeft ">
+                      <div class="pCon">
+
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center eventcreate">
+                          <h2 class="underline">Create an event with one of your top three matchers!</h2>
+                          <table style="margin:20px; width:100%">
+                            <tbody>
+                            <td>
+                                <iframe align="center" id="forPostyouradd" src="https://doodle.com/create" width="700" height="400" style="background:#ffffff;"></iframe>
+                            </td>
+                            <td >
+                              <div>
+                                {% if data.count > 0 %}
+                                {% for loc in data %}
+                                
+                                <h4> <ul><li>{{loc}} - {{loc.email}}</li></ul></h4>
+                                  {% endfor %}
+                                  {% else %}
+                                  <h4> <ul><li>You have no matches!</p></li></ul></h4>
+                                {% endif %}
+                                
+                              </div> 
+                            </td>    
+                            </tbody>   
+                          </table>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    </div>
+
+  <script type="text/javascript">
+  
+  function newWindow(){
+    var newWindow = window.open('https://doodle.com/create')
+  }
+    var markers=[]
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: new google.maps.LatLng(43.253205,-80.480347),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var geocoder = new google.maps.Geocoder();
+
+    var marker, i, j;
+    var locations = {{locations|safe}};
+    for (i = 0; i < locations.length; i++) {
+
+        geocoder.geocode( { 'address': locations[i]['location']}, function(results, status) {
+            //alert(status);
+            if (status == google.maps.GeocoderStatus.OK) {
+
+
+                //alert(results[0].geometry.location);
+                map.setCenter(results[0].geometry.location);
+                marker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map,
+                    optimized: false,
+                }); 
+               
+                geocoder.geocode({ 'latLng': results[0].geometry.location }, 
+
+                  function (marker,content,infowindow) {
+        if (status !== google.maps.GeocoderStatus.OK) {
+            alert(status);
+        }
+         var infowindow = new google.maps.InfoWindow()
+                  var address = (results[0].formatted_address)
+        // This is checking to see if the Geoeode Status is OK before proceedin
+        if (status == google.maps.GeocoderStatus.OK) {
+            console.log(address)
+            google.maps.event.addListener(marker, 'mouseover', function() {
+                 return function(){infowindow.setContent(address.toString())
+                 infowindow.open(map, marker);
+               };
+
+               });
+
+                google.maps.event.addListener(marker, 'mouseout', function() { infowindow.close();
+
+                }); 
+
+        }(marker,content,infowindow); 
+
+    });
+
+                markers.push(marker);
+                
+
+            }
+            else
+            {
+                alert("Error" + status);
+            }
+
+        }); 
+      }
+    
+    function show() {
+    var iframe1 = document.getElementById('iframe');
+    iframe1.style.display = 'block';
+}
+
+  </script>
+{% endblock content %}

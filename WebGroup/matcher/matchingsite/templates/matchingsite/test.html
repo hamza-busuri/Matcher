@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container editP">
+ <div class="row">
+    <div class="col-sm-6" > 
+<div class="signup-form pPicC">
+    <form method="post" enctype="multipart/form-data">
+    <h2 class="uName"> {{user}}</h2>
+     {% csrf_token %}
+    <p class="hint-text">Make changes to your profile.</p>
+      
+        {% if user.user.profile_pic %}   
+        <div class="form-group pPic"> 
+   <a class="profP" ><img src="{{ user.user.profile_pic.url }}" width="240"></a> 
+  </div>
+  {% else %}
+  <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
+    {% endif %}
+    
+  </div>
+</div>
+    <div class="col-sm-6">   
+<div class="form-group formP">
+        <div class="row">
+        {{form | crispy}}
+        {{ formHob | crispy}}
+        </div>          
+      </div>
+    <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block outline ">Make changes</button>
+        </div>
+    </form>
+</div> 
+</div> 
+</div>
+</div>
+{% endblock content %}                   

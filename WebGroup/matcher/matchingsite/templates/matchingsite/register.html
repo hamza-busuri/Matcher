@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+<script>
+$(document).ready(function(){    
+    $("#main").hide();
+});
+</script> 
+<div class="container editP">
+<div class="signup-form">
+    <form method="post">
+    <h2>Register</h2>
+     {% csrf_token %}
+    <p class="hint-text">Create your account. It's free and only takes a minute.</p>
+
+        <div class="form-group">
+        <div class="row">
+        {{form | crispy}}        
+        
+
+        <div class="form-group">
+        <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a data-toggle="modal" data-target="#exampleModalLong">Terms of Use</a> &amp; <a data-toggle="modal" data-target="#example">Privacy Policy.</a></label><p></p>
+        <label class="checkbox-inline"><input type="checkbox" required="required"> You must be over 16 to use this website. Please confirm you are 16.</label><p></p>
+        <small class="text-muted">
+                Already Have An Account? <a class="ml-2" href="/login/">Sign In</a>
+        </small>        
+        <div class="form-group loginbut" style="width:100%" >
+                  <button type="submit" class="btn btn-primary btn-block outline">Register Now</button>
+        </div>
+  </div>
+  </div>
+        </div>
+
+
+      <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Terms of Use</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Welcome to our website. If you continue to browse and use this website, you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern [business name]'s relationship with you in relation to this website. If you disagree with any part of these terms and conditions, please do not use our website.
+
+The term '[business name]' or 'us' or 'we' refers to the owner of the website whose registered office is [address]. Our company registration number is [company registration number and place of registration]. The term 'you' refers to the user or viewer of our website.
+
+The use of this website is subject to the following terms of use:
+
+The content of the pages of this website is for your general information and use only. It is subject to change without notice.
+This website uses cookies to monitor browsing preferences. If you do allow cookies to be used, the following personal information may be stored by us for use by third parties.
+Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials found or offered on this website for any particular purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law.
+Your use of any information or materials on this website is entirely at your own risk, for which we shall not be liable. It shall be your own responsibility to ensure that any products, services or information available through this website meet your specific requirements.
+This website contains material which is owned by or licensed to us. This material includes, but is not limited to, the design, layout, look, appearance and graphics. Reproduction is prohibited other than in accordance with the copyright notice, which forms part of these terms and conditions.
+All trade marks reproduced in this website which are not the property of, or licensed to, the operator are acknowledged on the website.
+Unauthorised use of this website may give rise to a claim for damages and/or be a criminal offence.
+From time to time this website may also include links to other websites. These links are provided for your convenience to provide further information. They do not signify that we endorse the website(s). We have no responsibility for the content of the linked website(s).
+Your use of this website and any dispute arising out of such use of the website is subject to the laws of England, Northern Ireland, Scotland and Wales.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Privacy Policy</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+ This website is operated by MatchFlix.(“We”) are committed to protecting and preserving the privacy of our visitors when visiting our site or communicating electronically with us.
+
+This policy sets out how we process any personal data we collect from you or that you provide to us through our website. We confirm that we will keep your information secure and that we will comply fully with all applicable UK Data Protection legislation and regulations. Please read the following carefully to understand what happens to personal data that you choose to provide to us, or that we collect from you when you visit this site. By visiting MatchFlix (our website) you are accepting and consenting to the practices described in this policy.
+
+Types of information we may collect from you
+We may collect, store and use the following kinds of personal information about individuals who visit and use our website:
+
+Information you supply to us. You may supply us with information about you by filling in forms on our website. This includes information you provide when you submit a contact/enquiry form [list any other active forms on your website (ie. Request a Prospectus Form, Application Form, Report and Absence Form, etc.]. The information you give us may include your name, address, e-mail address and phone number, [list any other types of information you collect via other active forms on your website (ie. child’s name, child’s date of birth, etc.)].
+
+Information our website automatically collects about you. With regard to each of your visits to our website we may automatically collect information including the following:
+
+technical information, including a truncated and anonymised version of your Internet protocol (IP) address, browser type and version, operating system and platform;
+information about your visit, including what pages you visit, how long you are on the site, how you got to the site (including date and time); page response times, length of visit, what you click on, documents downloaded and download errors.
+[Describe any other types of information you may collect through third party services you may have enabled on your website not linked to Cleverbox (ie. other tracking, marketing or SEO services)]
+
+Cookies
+
+Our website uses cookies to distinguish you from other users of our website. This helps us to provide you with a good experience when you browse our website and also allows us to improve our site. For detailed information on the cookies we use and the purposes for which we use them see our Cookie Policy [Make this link to the cookie policy page on your website that will be automatically updated by Cleverbox].
+
+How we may use the information we collect
+We use the information in the following ways:
+
+Information you supply to us. We will use this information:
+
+to provide you with information and/or services that you request from us;
+[Describe any other uses of the information you collect (ie. other marketing communications to individuals who have requested a prospectus)]
+
+Information we automatically collect about you. We will use this information:
+
+to administer our site including troubleshooting and statistical purposes;
+to improve our site to ensure that content is presented in the most effective manner for you and for your computer;
+security and debugging as part of our efforts to keep our site safe and secure.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+</div>
+</small>
+{% for message in messages %}
+
+                    <div class="alert alert-danger">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+
+                        {{ message }}
+
+                    </div>
+            {% endfor %}
+</div>
+{% endblock %}                   

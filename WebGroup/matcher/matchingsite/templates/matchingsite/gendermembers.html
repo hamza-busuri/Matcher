@@ -1,0 +1,45 @@
+
+    {% if genders.count > 0 %}
+    <thead>
+                              <tr>
+                                <th> Image</th>
+                                <th> Name</th>
+                                <th> Email</th>
+                                <th> Gender</th>
+                                <th> DOB</th>
+                              </tr>
+                             </thead>
+             {% for gender in genders %}
+             <tbody>
+                            <tr class ="members" id="{{gender.user.id}}">
+                                {% if gender.user.profile_pic %}
+                                <td width="10">
+                                    <img class="pull-left img-circle nav-user-photo" width="50" src="{{ gender.user.profile_pic.url }}" />  
+                                </td>
+                                {% endif %}
+                                <td>
+                                    <a href="/viewprofilepk/{{gender.id}}"><p>{{ gender}}</p></a><br><i class="fa fa-envelope"></i>
+                                </td>
+                                <td>
+                                  {{gender.email}}
+                                </td>
+
+                                <td>
+                                  {{gender.user.gender}}
+                                </td>
+
+                                <td>
+                                  {{gender.user.dob}}
+                                </td>
+                            </tr>
+                        </tbody>
+                            {% endfor %}
+                            {% else %}
+
+  <li>No results.</li>
+
+  {% endif %}  
+
+                         
+    
+                        
