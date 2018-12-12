@@ -1,21 +1,28 @@
 
     {% if users.count > 0 %}
-       <thead>
+                        <thead>
                               <tr>
+                                <th> Rank</th>
                                 <th> Image</th>
                                 <th> Name</th>
                                 <th> Email</th>
                                 <th> Gender</th>
                                 <th> DOB</th>
+                                <th> Hobbies </th>
                               </tr>
                              </thead>
              {% for user in users %}
-             <tbody>
-                            <tr class ="members" id="{{user.user.id}}">
+             <tbody id="{{user.id}}">
+                            <tr class ="members">
+                              <td class="nr">
+                              </td>
                                 {% if user.user.profile_pic %}
                                 <td width="10">
-                                    <img class="pull-left img-circle nav-user-photo" width="50" src="{{ user.user.profile_pic.url }}" />  
+                                    <img class="pull-left img-circle nav-user-photo" width="50" src="{{ user.user.profile_pic.url }}"/>  
                                 </td>
+                                {% else %}
+  <td width="10"><img class="pull-left img-circle nav-user-photo" width="50" src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png">
+  </td>    
                                 {% endif %}
                                 <td>
                                     <a href="/viewprofilepk/{{user.id}}"><p>{{ user}}</p></a><br><i class="fa fa-envelope"></i>
@@ -33,25 +40,17 @@
                                 </td>
                             </tr>
                         </tbody>
-                                <div class="pagination" id="page">
-    <span class="step-links">
-        {% if users.has_previous %}
-        <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ users.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ users.number }} of {{ users.paginator.num_pages }}.
-        </span>
-
-        {% if members.has_next %}
-            <a href="?page={{ users.next_page_number }}">next</a>
-            <a href="?page={{ users.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
                             {% endfor %}
                          {% else %}
   <li>No results.</li>
 
   {% endif %}
+       <script>
+
+    var a = document.getElementsByClassName("nr");
+    for (var i = 0; i < a.length; i++) {
+        a[i].innerHTML = (i+1)+".";
+    }
+  
+
+</script>

@@ -18,6 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.exceptions import ValidationError
 from django.forms import forms
+from django.db.models import Q
 
 
 # Create your views here.
@@ -220,11 +221,12 @@ def edit_profile(request, user):
 
 @loggedin
 def list_members(request, user):
+    countarr={}
+    counter=0;
     if request.method =="GET":
-        # list of all other members
-        #member = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies')
         member = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies')
         count = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies').count()
+                                                                                                                                                                                          
         page = request.GET.get('page')
         paginator = Paginator(member, 5)
 
@@ -245,18 +247,23 @@ def list_members(request, user):
 
 @loggedin
 def getgender(request,user):
+    hobs = []
     if request.method=='POST':
         search_text = request.POST['search_text']
     else:
         search_text = ''
 
     genders=Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies').filter(user__gender__in=search_text)
-    return render(request, 'matchingsite/gendermembers.html', {'genders':genders})
+    counthob = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).count()
+    counts = str(counthob)
+    hobs.append(counts)
+    return render(request, 'matchingsite/gendermembers.html', {'genders':genders, 'counthob':hobs})
 
         
 
 @loggedin
 def age_range(request, user):
+    hobs = []
     current = now().date()
     if request.method=='POST':
         age = request.POST['age']
@@ -282,10 +289,14 @@ def age_range(request, user):
 
     ages = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies').filter(user__dob__gte=max_date,
                                     user__dob__lte=min_date)
-    return render(request, 'matchingsite/agemembers.html', {'ages':ages}) 
+    counthob = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).count()
+    counts = str(counthob)
+    hobs.append(counts)
+    return render(request, 'matchingsite/agemembers.html', {'ages':ages, 'counthob':hobs}) 
 
 @loggedin
 def ageAndGender(request, user):
+    hobs = []
     current = now().date()
     if request.method=='POST':
         age = request.POST['age']
@@ -340,15 +351,19 @@ def ageAndGender(request, user):
     ageandg = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies').filter(user__dob__gte=max_date,
                                     user__dob__lte=min_date).filter(user__gender__in=search_text)
     
-    return render(request, 'matchingsite/ageandg.html', {'ageandg':ageandg, 'messages':messages})
+    counthob = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).count()
+    counts = str(counthob)
+    hobs.append(counts)
+    return render(request, 'matchingsite/ageandg.html', {'ageandg':ageandg, 'messages':messages, 'counthob':hobs})
 
 
 @loggedin
 def locate(request,user):
-    locations = UserProfile.objects.values('location').exclude(user=user).exclude(location__isnull=True).exclude(allow_location=False)
-    json_data = json.dumps(list(locations))
-    test = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies').exclude(user__location__isnull=True).exclude(user__allow_location=False)[:3]
-    return render(request, 'matchingsite/locate.html', {'loggedin':True, 'locations':json_data, 'data': test})
+    locate = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies').exclude(user__location__isnull=True).exclude(user__allow_location=False).values('user__location')
+    json_data = json.dumps(list(locate))
+    top3 = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies').exclude(user__location__isnull=True).exclude(user__allow_location=False)[:3]
+    every = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies').exclude(user__location__isnull=True).exclude(user__allow_location=False)
+    return render(request, 'matchingsite/locate.html', {'loggedin':True, 'locations':json_data, 'data': top3, 'data1':every})
     
 
 
@@ -361,3 +376,16 @@ def searchuser(request, user):
 
     users = Member.objects.exclude(user=user.user).filter(hobbies__in=user.hobbies.all()).annotate(numOfHobbies=Count('hobbies')).order_by('-numOfHobbies').filter(first_name__contains=search)
     return render(request, 'matchingsite/searchusers.html', {'users':users,})
+
+@loggedin
+def upload_image(request, user):
+    if 'img_file' in request.FILES:
+        image_file = request.FILES['img_file']
+        if user.user:
+            # if user doesn't have a profile yet
+            # need to create a profile first
+            user.user.profile_pic = image_file
+            user.user.save()
+        return HttpResponse(user.user.profile_pic.url)
+    else:
+        raise Http404('Image file not received')

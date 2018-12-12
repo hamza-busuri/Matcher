@@ -24,8 +24,8 @@
 </td>
 <td >
                               <div>
-                                {% if data.count > 0 %}
-                                {% for loc in data %}
+                                {% if data1.count > 0 %}
+                                {% for loc in data1 %}
                                 
                                 <h4> <ul><li>{{loc}} - {{loc.user.location}}
                                   </li></ul></h4>
@@ -64,8 +64,7 @@
                               <div>
                                 {% if data.count > 0 %}
                                 {% for loc in data %}
-                                
-                                <h4> <ul><li>{{loc}} - {{loc.email}}</li></ul></h4>
+                                    <h4> <ul><li>{{loc}} - {{loc.email}}</li></ul></h4>
                                   {% endfor %}
                                   {% else %}
                                   <h4> <ul><li>You have no matches!</p></li></ul></h4>
@@ -91,8 +90,8 @@
     var markers=[]
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
-      center: new google.maps.LatLng(43.253205,-80.480347),
+      zoom: 2,
+      center: new google.maps.LatLng(51.5074,0.1278),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
@@ -102,7 +101,7 @@
     var locations = {{locations|safe}};
     for (i = 0; i < locations.length; i++) {
 
-        geocoder.geocode( { 'address': locations[i]['location']}, function(results, status) {
+        geocoder.geocode( { 'address': locations[i]['user__location']}, function(results, status) {
             //alert(status);
             if (status == google.maps.GeocoderStatus.OK) {
 

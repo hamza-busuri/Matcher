@@ -52,6 +52,7 @@ urlpatterns = [
     path('search/', views.searchuser, name='search'),
     #url for google maps location feature
     path('locate/', views.locate, name='locate'),
+    path('uploadimage/', views.upload_image, name='uploadimage'),
 
     #PASSWORD RESET URLS
     path('password_reset/', PasswordResetView.as_view(template_name='registration/password_reset_form.html',success_url='done/'), name="password_reset"),

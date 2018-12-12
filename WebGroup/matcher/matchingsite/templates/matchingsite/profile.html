@@ -7,7 +7,10 @@
     $('[type="date"]').datepicker(
       {
         dateFormat: 'yy-mm-dd',
-        maxDate:'2002-12-31',
+        maxDate:'2000-12-31',
+        changeYear: true,
+        changeMonth:true,
+        yearRange:'c-100:c+10',
       });
 }
 
@@ -19,27 +22,43 @@
       $('#id_dob').datepicker(
       {
         dateFormat: 'yy-mm-dd',
-        maxDate:'2002-12-31',
+        maxDate:'2000-12-31',
+        changeYear: true,
+        changeMonth:true,
+        yearRange:'c-100:c+10',
       });
   })
+
+  $(document).ready(function(){
+     $('#profile-img').click(function() {
+       $("#img_file").click();
+   });
+  });
+
+  $(document).ready(function(){    
+    $("#div_id_profile_pic").hide();
+});
 </script>
 <div class="container editP">
  <div class="row">
     <div class="col-sm-6" > 
 <div class="signup-form pPicC">
     <form method="post" enctype="multipart/form-data">
+       <input type="file" id="img_file" style="display:none;">
     <h2 class="uName"> {{user}}</h2>
      {% csrf_token %}
     <p class="hint-text">Make changes to your profile.</p>
       
         {% if user.user.profile_pic %}   
         <div class="form-group pPic"> 
-   <a class="profP" ><img src="{{ user.user.profile_pic.url }}" width="240"></a> 
+   <a class="profP" ><img id='profile-img' src="{{ user.user.profile_pic.url }}" width="240"></a> 
   </div>
   {% else %}
-  <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
+  <img id='profile-img' src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" width="240" class="rounded-circle">
     {% endif %}
-    
+    <p class="hint-text">Click profile image to change.</p>
+    <progress id="progressBar" value="0" max="100" style="width:150px;display:none;">
+      </progress>
   </div>
 </div>
     <div class="col-sm-6">   

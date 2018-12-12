@@ -63,13 +63,13 @@
                           </div>
                         <div class="col-md-2">
                           <div class="form-group">
-                         <button id="but" type="button" class="btn btn-primary btn-block outline" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Filter Both</button> 
+                         <button id="but" type="button" class="btn btn-primary btn-block outline" data-toggle="tooltip"data-placement="right" title="Filter both age & gender">Filter Both</button> 
                        </div>
                      </div>
 
                        <div class="col-md-2">
                           <div class="form-group">
-                         <button id="but" type="button" class="btn btn-primary btn-block outline" data-toggle="tooltip" data-placement="right" title="Tooltip on right" onclick="window.location.reload()">Refresh</button>
+                         <button id="but" type="button" class="btn btn-primary btn-block outline" data-toggle="tooltip" data-placement="right" title="Refresh Data" onclick="window.location.reload()">Refresh</button>
                        </div>
                      </div>
 
@@ -80,11 +80,13 @@
                 </form>
                       <thead>
                               <tr>
+                                <th> Rank </th>
                                 <th> Image</th>
                                 <th> User</th>
                                 <th> Email</th>
                                 <th> Gender</th>
                                 <th> DOB</th>
+                                <th> Hobbies </th>
                               </tr>
                              </thead>
                             {% for member in members %}
@@ -92,12 +94,15 @@
                         <tbody id="{{member.id}}">
                            
                             <tr class ="members">
+                              <td class="nr">
+                              </td>
                                 {% if member.user.profile_pic %}
                                 <td width="10">
                                     <img class="pull-left img-circle nav-user-photo" width="50" src="{{ member.user.profile_pic.url }}" /> 
                                     </td>
                                     {% else %}
-  <td width="10"><img class="pull-left img-circle nav-user-photo" width="50" src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png">
+  <td width="10">
+    <img class="pull-left img-circle nav-user-photo" width="50" src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png">
   </td>                             
                                 {% endif %}
                                 <td>
@@ -114,9 +119,15 @@
                                 <td>
                                   {{member.user.dob}}
                                 </td>
+                                <td>
+                                  {% for hobby in member.hobbies.all %}
+                                    <p>{{hobby}}</p>
+                                  {% endfor %}
+                                </td>
                             </tr>
         
                          {% endfor %}
+                         
  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -161,6 +172,20 @@
 
 	</div>
 </div>
+<script>
 
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+
+
+})
+
+    var a = document.getElementsByClassName("nr");
+    for (var i = 0; i < a.length; i++) {
+        a[i].innerHTML = (i+1)+".";
+    }
+  
+
+</script>
 
 {% endblock content %}

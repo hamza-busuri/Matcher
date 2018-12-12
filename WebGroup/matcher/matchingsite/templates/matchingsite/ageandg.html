@@ -1,20 +1,28 @@
     {% if ageandg.count > 0 %}
       <thead>
                               <tr>
+                                <th> Rank </th>
                                 <th> Image</th>
                                 <th> Name</th>
                                 <th> Email</th>
                                 <th> Gender</th>
                                 <th> DOB</th>
+                                <th> Hobbies </th>
                               </tr>
                              </thead>
              {% for both in ageandg %}
-             <tbody>
-                            <tr class ="members" id="{{both.user.id}}">
+             <tbody id="{{both.id}}">
+                            <tr class ="members">
+                               <td class="nr">
+                              </td>
                                 {% if both.user.profile_pic %}
                                 <td width="10">
                                     <img class="pull-left img-circle nav-user-photo" width="50" src="{{ both.user.profile_pic.url }}" />  
                                 </td>
+                                </td>
+                                {% else %}
+  <td width="10"><img class="pull-left img-circle nav-user-photo" width="50" src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png">
+  </td> 
                                 {% endif %}
                                 <td>
                                     <a href="/viewprofilepk/{{both.id}}"><p>{{ both}}</p></a><br><i class="fa fa-envelope"></i>
@@ -30,6 +38,11 @@
                                 <td>
                                   {{both.user.dob}}
                                 </td>
+                                <td>
+                                  {% for hobby in both.hobbies.all %}
+                                    <p>{{hobby}}</p>
+                                  {% endfor %}
+                                </td>
                             </tr>
                         </tbody>
                             {% endfor %}
@@ -38,3 +51,12 @@
   <li>No results.</li>
 
   {% endif %}  
+     <script>
+
+    var a = document.getElementsByClassName("nr");
+    for (var i = 0; i < a.length; i++) {
+        a[i].innerHTML = (i+1)+".";
+    }
+  
+
+</script>
