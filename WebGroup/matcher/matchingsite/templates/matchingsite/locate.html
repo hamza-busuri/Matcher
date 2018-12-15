@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <head> 
+
+  <!-- Retreiving the API Key -->
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
   <title>Google Maps Multiple Markers</title> 
   <script src="http://maps.google.com/maps/api/js?v=3&key=AIzaSyB_tTMhV2RoEzPpczgXzCOd_qDcfy_WGIM" 
@@ -18,12 +20,16 @@
 <table style="margin:20px; width:100%">
     <tbody>
 <td>
+
+  <!-- Div which holds the map -->
   <div id="map" style="width: 700px; height: 500px;
   margin-left: auto;
   margin-right: auto;"></div>
 </td>
 <td >
+
                               <div>
+                                <!--Displays user info if the user has matches-->
                                 {% if data1.count > 0 %}
                                 {% for loc in data1 %}
                                 
@@ -38,14 +44,15 @@
                             </td>    
                             </tbody>   
                           </table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+                      </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
 </div>
 
+<!-- Displays an iframe to the user -->
   <div align="right" class="container main-secction">
         <div class="row">
             <div class="row user-left-part">
@@ -84,29 +91,38 @@
 
   <script type="text/javascript">
   
+  //Function to open up the doodle website.
   function newWindow(){
     var newWindow = window.open('https://doodle.com/create')
   }
+
+  //Code to display google maps location
     var markers=[]
 
+// This displays a map from the google maps API
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 2,
+      //The center of the map is no locations are added is London
       center: new google.maps.LatLng(51.5074,0.1278),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
+
+    //This is used to convert a string to langitude, longitude and vice versa.
     var geocoder = new google.maps.Geocoder();
 
     var marker, i, j;
+    //This has a list of user locations who the user matched with. In a json format.
     var locations = {{locations|safe}};
+
+    //Loops through the list of locations.
     for (i = 0; i < locations.length; i++) {
 
+      //Geocodes the location of the user.
+
         geocoder.geocode( { 'address': locations[i]['user__location']}, function(results, status) {
-            //alert(status);
-            if (status == google.maps.GeocoderStatus.OK) {
-
-
-                //alert(results[0].geometry.location);
+            if (status == google.maps.GeocoderStatus.OK) {  
+              //displays a marker of the user location on the map.
                 map.setCenter(results[0].geometry.location);
                 marker = new google.maps.Marker({
                     position: results[0].geometry.location,
@@ -114,14 +130,19 @@
                     optimized: false,
                 }); 
                
-                geocoder.geocode({ 'latLng': results[0].geometry.location }, 
+            //Converts the longitude , latitude of location back to a string.
+            geocoder.geocode({ 'latLng': results[0].geometry.location }, 
 
                   function (marker,content,infowindow) {
-        if (status !== google.maps.GeocoderStatus.OK) {
-            alert(status);
-        }
+            if (status !== google.maps.GeocoderStatus.OK) {
+                 alert(status);
+             }
+
+
+
          var infowindow = new google.maps.InfoWindow()
-                  var address = (results[0].formatted_address)
+         //Prints a string format of the address.
+          var address = (results[0].formatted_address)
         // This is checking to see if the Geoeode Status is OK before proceedin
         if (status == google.maps.GeocoderStatus.OK) {
             console.log(address)
@@ -151,7 +172,7 @@
 
         }); 
       }
-    
+    //Function to display the iframe with doodle.
     function show() {
     var iframe1 = document.getElementById('iframe');
     iframe1.style.display = 'block';

@@ -1,88 +1,5 @@
 
 
-//AJAX TO FILTER GENDER
- $('#gender').change(function(){
-  event.preventDefault();
-  var $myForm = $('.form');
-    var val = $('#gender option:selected').val()
-
-$.ajax({
-      type:"POST",
-      url: "/gender/",
-      data:{'search_text':val, 'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()},
-      success:handleSuccess,
-      error:handleError,
-    });
-
-
-    function handleSuccess(data){
-  $('#search-results').html(data)
- $('#page').hide();
-test();
-} 
-
-function handleError(ThrowError){
-            console.log(ThrowError);
-        }
-});
-
-
-//AJAX TO FILTER AGE
- $('#age').change(function(){
-  event.preventDefault();
-  var $myForm = $('.form');
-    var val = $('#age option:selected').val()
-
-$.ajax({
-      type:"POST",
-      url: "/agerange/",
-      data:{'age':val, 'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()},
-      success:handleSuccess,
-      error:handleError,
-    });
-
-
-    function handleSuccess(data){
-  $('#search-results').html(data)
- $('#page').hide();
- test();
-
-} 
-
-function handleError(ThrowError){
-            console.log(ThrowError);
-        }
-});
-
- //AJAX TO FILTER AGE AND GENDER
-
- $('#but').click(function() {
-  event.preventDefault();
-  var $myForm = $('.form');
-  var age = $('#age option:selected').val()
-  var gen = $('#gender option:selected').val()
-
-  $.ajax({
-      type:"POST",
-      url: "/ageandg/",
-      data:{'age':age, 'search_text': gen, 'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()},
-      success:handleSuccess,
-      error:handleError,
-    });
-
-
-    function handleSuccess(data){
-  $('#search-results').html(data)
- $('#page').hide();
- test();
-
-} 
-
-function handleError(ThrowError){
-            console.log(ThrowError);
-        }  
-});
-
 //AJAX TO FILTER BY FIRST NAME
 $('#search').keyup(function() {
   event.preventDefault();
@@ -99,7 +16,7 @@ $('#search').keyup(function() {
     function handleSuccess(data){
   $('#search-results').html(data)
  $('#page').hide();
- test();
+quickview();
 
 } 
 
@@ -108,7 +25,8 @@ function handleError(ThrowError){
         }  
 });
 
-function test(){
+//FUNCTION WHICH SHOWS A MODAL WHEN CLICKING ON THE TABLE ROW OF MATCHED USER.
+function quickview(){
 $(document).ready(function(){
     $(".members").click(function() {
       var id = $(this).parent().attr('id');
@@ -155,6 +73,7 @@ function completeHandler(event) {
    $('#progressBar').hide();
 }
 
+//UPLOADING IMAGE USING AJAX.
 $(function () {
 $('#img_file').change(function uploadFile() {
    $('#progressBar').show();
@@ -181,5 +100,102 @@ $('#img_file').change(function uploadFile() {
 });
 });
 
-test();
+
+
+//AJAX FUNCTION TO FILTER AGE, GENDER, AGE&GENDER
+
+$(document).on('change', '#filter-by', function() {
+    var value = $(this).val();
+
+    if (value =='G')
+    {
+          event.preventDefault();
+  var $myForm = $('.form');
+    var val = $('#gender option:selected').val()
+
+$.ajax({
+      type:"POST",
+      url: "/gender/",
+      data:{'search_text':val, 'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()},
+      success:handleSuccess,
+      error:handleError,
+    });
+
+
+    function handleSuccess(data){
+      $('#filter-by').prop('selectedIndex',0);
+  $('#search-results').html(data)
+ $('#page').hide();
+quickview();
+} 
+
+function handleError(ThrowError){
+            console.log(ThrowError);
+        }
+
+
+    }
+
+    if (value =='A')
+    {
+         event.preventDefault();
+  var $myForm = $('.form');
+    var val = $('#age option:selected').val()
+
+$.ajax({
+      type:"POST",
+      url: "/agerange/",
+      data:{'age':val, 'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()},
+      success:handleSuccess,
+      error:handleError,
+    });
+
+
+    function handleSuccess(data){
+       $('#filter-by').prop('selectedIndex',0);
+  $('#search-results').html(data)
+ $('#page').hide();
+ quickview();
+
+} 
+
+function handleError(ThrowError){
+            console.log(ThrowError);
+        }
+    }
+
+
+ if (value =='A&G')
+ {
+   
+   var $myForm = $('.form');
+  var age = $('#age option:selected').val()
+  var gen = $('#gender option:selected').val()
+
+  $.ajax({
+      type:"POST",
+      url: "/ageandg/",
+      data:{'age':age, 'search_text': gen, 'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()},
+      success:handleSuccess,
+      error:handleError,
+    });
+
+
+    function handleSuccess(data){
+       $('#filter-by').prop('selectedIndex',0);
+  $('#search-results').html(data)
+ $('#page').hide();
+ quickview();
+
+} 
+
+function handleError(ThrowError){
+            console.log(ThrowError);
+        } 
+
+ }
+
+});
+
+quickview();
 

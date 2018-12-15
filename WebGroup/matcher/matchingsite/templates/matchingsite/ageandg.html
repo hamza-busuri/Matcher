@@ -1,3 +1,4 @@
+    <!-- If there are users that match the query, append this html to the table. -->
     {% if ageandg.count > 0 %}
       <thead>
                               <tr>
@@ -25,7 +26,7 @@
   </td> 
                                 {% endif %}
                                 <td>
-                                    <a href="/viewprofilepk/{{both.id}}"><p>{{ both}}</p></a><br><i class="fa fa-envelope"></i>
+                                    <a href="/viewprofilepk/{{both.id}}"><p>{{ both.first_name}}</p></a><br><i class="fa fa-envelope"></i>
                                 </td>
                                 <td>
                                   {{both.email}}
@@ -51,6 +52,7 @@
   <li>No results.</li>
 
   {% endif %}  
+  <!-- Putting a rank on the table based on how many rows.-->
      <script>
 
     var a = document.getElementsByClassName("nr");

@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <script>
+  //This was implemented for Browser compability. Safari sees the date picker as a text type so a check is made to see if the input type is not date.
   $(document).ready(function(){
     if ( $('[type="date"]').prop('type') != 'date' ) {
     $('[type="date"]').datepicker(
@@ -29,16 +30,20 @@
       });
   })
 
+//Runs ajax function on clicking image.
   $(document).ready(function(){
      $('#profile-img').click(function() {
        $("#img_file").click();
    });
   });
 
+//Initally the profile image change was showing as Currently and Change: This did not look good so hiding that div is appropriate.
   $(document).ready(function(){    
     $("#div_id_profile_pic").hide();
 });
 </script>
+
+<!-- Div to display the custom edit profile form. -->
 <div class="container editP">
  <div class="row">
     <div class="col-sm-6" > 

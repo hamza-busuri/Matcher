@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+<!-- Loading django cookie consent pop up when user uses a new browser-->
 {% load django_simple_cookie_consent_tags %}
     <head>
   {% display_cookie_consent %}
 
+<!-- Loading CSS Files, JQUERY CDN, BOOTSTRAP CDN-->
       <link href="/static/matchingsite/css/special.css?" rel="stylesheet" type="text/css">
       <link href="/static/matchingsite/css/profile.css" rel="stylesheet" type="text/css">
       <link href="/static/matchingsite/css/carousel.css" rel="stylesheet" type="text/css">
@@ -42,6 +44,7 @@
   </style>
     <body>
 
+<!-- Show the navbar only if the user is logged in.-->
     {% if loggedin %}
           <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -84,7 +87,7 @@
 
     <div class="col-lg-10" style="float:none; margin:0 auto;">
       <h1 class="title">MATCHER</h1>
-      <h3 class="subtitle"> Meet people at your doorstep!</h3>
+      <h3 class="subtitle">Connecting people anytime, anywhere.</h3>
       
     </div>
     <div class="col-xs-12 explore">
@@ -107,6 +110,7 @@
 
 
     </body>
-<script type ="text/javascript" src="{{ STATIC_URL}} /static/matchingsite/main.js?new"></script>
+    <!-- Script to call Ajax-->
+<script type ="text/javascript" src="{{ STATIC_URL}} /static/matchingsite/main.js?newv"></script>
 
 </html>

@@ -35,12 +35,6 @@ class UserProfile(models.Model):
 
 #MODEL FOR HOBBIES
 class Hobbies(models.Model):
-    HOBBIES_CHOICES=(
-        ('sports', 'SPORTS'),
-        ('mybrudda', 'MYBRUDDA'),
-    )
-
-
     list_Of_Hob = models.CharField(max_length=200, null=True)
 
     def __str__(self):
@@ -48,13 +42,14 @@ class Hobbies(models.Model):
     
 #MODEL FOR MEMBER
 class Member(User):
+    #One user has one user profile.
     user = models.OneToOneField(
         to=UserProfile,
         blank=True,
         null=True,
         on_delete=models.CASCADE
         )
-
+    #many2many field between user and hobbies.
     hobbies = models.ManyToManyField(
         Hobbies,
         blank=True,

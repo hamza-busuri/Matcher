@@ -39,6 +39,7 @@ urlpatterns = [
     path('viewprofile/', views.view_profile, name='view_profile'),
     #view other members profile url
     path('viewprofilepk/<int:pk>', views.viewprofilepk, name='viewprofile'),
+    #this url is to check the user profile when the ajax calls are made.
     path('listmembers/viewprofilepk/<int:pk>', views.viewprof, name='viewprofile'),
     #list of members url
     path('listmembers/', views.list_members, name='members'),
@@ -50,8 +51,9 @@ urlpatterns = [
     path('ageandg/', views.ageAndGender, name='ageandg'),
     #url for search by first name ajax feature
     path('search/', views.searchuser, name='search'),
-    #url for google maps location feature
+    #url for google maps location feature and doodle
     path('locate/', views.locate, name='locate'),
+    #url for the ajax call to upload image
     path('uploadimage/', views.upload_image, name='uploadimage'),
 
     #PASSWORD RESET URLS

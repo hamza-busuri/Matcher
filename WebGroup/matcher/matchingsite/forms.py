@@ -4,24 +4,24 @@ from django.contrib.auth.models import User
 from .models import UserProfile, Member, Hobbies
 from django.contrib.auth.forms import UserCreationForm
 
-
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
+#Added a TextInput class to add a placeholder to the location field
 class TextInput(forms.TextInput):
     input_type = 'text'
 
+#Registration form class to display fields from Djangos User model.
 class RegistrationForm(UserCreationForm):
     class Meta:
         model = Member
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
+#Method which allows to override the 'required' attribute of the field.
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
         self.fields['email'].required = True
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
-        
+
+#UserProfile form class to display fields fromUserprofile Model.      
 class UserProfileForm(ModelForm):
 
     class Meta:
@@ -33,13 +33,12 @@ class UserProfileForm(ModelForm):
         "last_name" : "Surname",
         "dob" : "Date Of Birth",      
     }
+        #widget which inputs a placeholder in location field.
         widgets = {
             'location': TextInput(attrs={'placeholder': 'Please enter accurate location for best results.'}),
         }
-        help_text={
-            'location': "Please provide a specific location for best results."
-    }
-    
+
+    #Method which allows to override the 'required' attribute of the field.
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
 
@@ -50,7 +49,7 @@ class UserProfileForm(ModelForm):
         self.fields['dob'].widget.attrs['readonly'] = True
         
 
-
+#Edit hobbies form class to display fields from Custom Member model. 
 class EditHobbies(ModelForm):
 
     class Meta:

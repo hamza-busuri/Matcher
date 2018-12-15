@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 # Application definition
 
+#List of installed applications
 INSTALLED_APPS = [
     'matchingsite.apps.MatchingsiteConfig',
     'crispy_forms',
