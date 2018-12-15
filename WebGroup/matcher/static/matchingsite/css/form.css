@@ -1,0 +1,20 @@
+Html, body{
+	height:100%;
+    margin:0px;
+    padding:0px;
+}
+.grandParentContaniner{
+        display:table;
+        height:100%;
+        margin: 0 auto;
+}
+.parentContainer{
+    display:table-cell;
+    vertical-align:middle;  
+}
+.parentContainer #loginForm{
+    background:#ddd;
+    border:1px solid #eee;
+    padding:10px; 
+    width:300px;  /*  your login form width */
+}
